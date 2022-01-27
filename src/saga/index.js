@@ -1,8 +1,9 @@
+
 import {all} from "redux-saga/effects"
-import { eventChannelSaga} from "./eventChannel"
+import { initWebSocket} from "./eventChannel"
 
 
 
 export function* rootWatcher(){
-    yield all([eventChannelSaga()])
+    yield all([initWebSocket()])
 }

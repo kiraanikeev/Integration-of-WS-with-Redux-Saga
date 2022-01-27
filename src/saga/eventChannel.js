@@ -1,27 +1,28 @@
 import { eventChannel, END } from 'redux-saga'
-import { call, take, put } from 'redux-saga/effects'
-import { ADD_LOGS, LS_SAVE } from '../store/UserReduser'
+import { call, take, put, takeEvery, actionChannel, takeLatest } from 'redux-saga/effects'
+import { ADD_LOGS, LS_SAVE, LS_GET } from '../store/UserReduser'
+import { SAVE_DATA, INITIALIZE_WS_CHANNEL, addDataActionCreater } from '../store/LogsReduser'
 import { createEventProvider } from './createEventProvider'
+import { buffers } from 'redux-saga'
 
 const createEventProviderChannel = (eventProvider) => {
   return eventChannel((emit) => {
-    const valueHandler = (event) => {
-      if (event.payload > 2) {
-        emit(END)
-        return
-      }
-      emit(event.payload)
-    }
-    eventProvider.subscribe('value', valueHandler)
+       eventProvider.onopen = function(event) {
+            console.log("Соединение установлено.");
+                }
+        eventProvider.onmessage = function (message) {
+            // console.log('Message: %s', message.data);
+    emit(message.data)
+          };
     return () => {
-      eventProvider.unsubscribe('value', valueHandler)
-      console.log('unsubscribed')
+        eventProvider.close()
     }
   })
 }
 
-export function* eventChannelSaga() {
-  const eventProvider = yield call(createEventProvider)
+function* eventChannelSaga() {
+  const eventProvider = new WebSocket("ws://localhost:5000");
+  console.log('eventProvider',eventProvider)
   const eventProviderChannel = yield call(
     createEventProviderChannel,
     eventProvider
@@ -29,13 +30,19 @@ export function* eventChannelSaga() {
   try {
     while (true) {
       const payload = yield take(eventProviderChannel)
-      console.log('payload from event channel', payload)
+      yield put(addDataActionCreater(payload))
+       // yield put({ type: LS_GET})
       yield put({ type: ADD_LOGS})
       yield put({ type: LS_SAVE})
+      debugger;
     }
   } catch (error) {
     console.log('error', error)
   } finally {
     console.log('event channel terminated')
   }
+}
+
+export function * initWebSocket() {
+  yield takeEvery(INITIALIZE_WS_CHANNEL, eventChannelSaga);
 }

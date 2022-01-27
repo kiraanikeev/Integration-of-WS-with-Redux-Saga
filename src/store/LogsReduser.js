@@ -2,20 +2,23 @@
 const defaultState = {
     logs:[]
 }
+export const INITIALIZE_WS_CHANNEL = "INITIALIZE_WS_CHANNEL"
+export const DATA_WS = "DATA_WS"
 
-export const ADD_LOGS = "ADD_LOGS"
 
 export const logsReducer = (state = defaultState, action)=>{
 
     switch(action.type){
-        case  "ADD_LOGS":
-                    return {...state, 
-                logs: [...state.logs, {count: state.logs.length + 1}]}
-          
+
+                            case  "DATA_WS":
+                              return {...state, 
+                                logs: [...state.logs, {logData: action.payload}]}
       default:
         return state
     }
   }
 
 
-  export const addLogsActionCreater = ()=> ({type: ADD_LOGS})
+  export const iDataActionCreater = ()=> ({type: INITIALIZE_WS_CHANNEL})
+
+  export const addDataActionCreater = (payload)=> ({type: DATA_WS, payload})
