@@ -1,48 +1,57 @@
-import { eventChannel, END } from 'redux-saga'
-import { call, take, put, takeEvery, actionChannel, takeLatest } from 'redux-saga/effects'
-import { ADD_LOGS, LS_SAVE, LS_GET } from '../store/UserReduser'
-import { SAVE_DATA, INITIALIZE_WS_CHANNEL, addDataActionCreater } from '../store/LogsReduser'
-import { createEventProvider } from './createEventProvider'
-import { buffers } from 'redux-saga'
+import { eventChannel} from "redux-saga";
+import {
+  call,
+  take,
+  put,
+  takeEvery,
+} from "redux-saga/effects";
+import { ADD_LOGS, LS_SAVE, LS_GET } from "../store/UserReduсer";
+import {
+  INITIALIZE_WS_CHANNEL,
+  addDataActionCreater,
+} from "../store/LogsReduсer";
+
 
 const createEventProviderChannel = (eventProvider) => {
   return eventChannel((emit) => {
-       eventProvider.onopen = function(event) {
-            console.log("Соединение установлено.");
-                }
-        eventProvider.onmessage = function (message) {
-            // console.log('Message: %s', message.data);
-    emit(message.data)
-          };
+    eventProvider.onopen = function (event) {
+      console.log("The connection is established");
+    };
+    eventProvider.onmessage = function (message) {
+      emit(message.data);
+    };
     return () => {
-        eventProvider.close()
-    }
-  })
-}
+      eventProvider.close();
+    };
+  });
+};
 
 function* eventChannelSaga() {
   const eventProvider = new WebSocket("ws://localhost:5000");
-  console.log('eventProvider',eventProvider)
   const eventProviderChannel = yield call(
     createEventProviderChannel,
     eventProvider
-  )
+  );
   try {
     while (true) {
-      const payload = yield take(eventProviderChannel)
-      yield put(addDataActionCreater(payload))
-       // yield put({ type: LS_GET})
-      yield put({ type: ADD_LOGS})
-      yield put({ type: LS_SAVE})
-      debugger;
+      const payload = yield take(eventProviderChannel);
+      //send the received data to the LogsReduсer
+      yield put(addDataActionCreater(payload));
+      //get user's "total logs count" from LS
+      yield put({ type: LS_GET})
+      //send user's "total logs count" to the UserReduсer
+      yield put({ type: ADD_LOGS });
+      //save user's "total logs count" from LS
+      yield put({ type: LS_SAVE });
+     
     }
   } catch (error) {
-    console.log('error', error)
+    console.log("error", error);
   } finally {
-    console.log('event channel terminated')
+    console.log("event channel terminated");
   }
 }
 
-export function * initWebSocket() {
+export function* initWebSocket() {
   yield takeEvery(INITIALIZE_WS_CHANNEL, eventChannelSaga);
 }

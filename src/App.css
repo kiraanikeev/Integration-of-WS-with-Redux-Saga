@@ -1,14 +1,49 @@
-h1{
+h1 {
   text-align: center;
-  margin: 30px auto;
+  margin: 50px auto;
 }
 .App {
   display: flex;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+  justify-content: space-around;
 }
-.user{
-  width: 300px;
-}
+.count{
+  width: 200px;
+  height: 30px;
+  left: 800px;
+  background-color: #AFEEEE;
+  border: black 1px solid;
+  }
 .logs{
-  width: 300px;
-  margin-left: 200px;
+  width: 320px;
+  background-color: #DCDCDC;
+  justify-content: flex-end;
+  }
+ .log{
+text-align: center;
+height: 35px;
+padding-top: 5px;
+ }
+  .log:nth-child(2n+1) {
+  background-color: #ffffff;
+   }
+.button{
+  border: none;
+  background-color: #fff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 30px;
+  display: flex;
+  margin: 50px auto;
+  cursor: pointer;
+}
+.button:hover{
+  background-color: rgb(180, 170, 170);
+  border-radius: 20px;
+}
+.invisible{
+  display: none;
+}
+p{
+  margin: 0;
 }
