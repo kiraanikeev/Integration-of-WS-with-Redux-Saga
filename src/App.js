@@ -24,5 +24,10 @@ function App() {
           Total Logs Count: {user.totalLogsCount}
         </p>
       </div>
+      <ReactWindow
+      logs={logs}/>
+    </div>
+  );
+}
 
 export default App;
