@@ -5,9 +5,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.List {
+  border: 1px solid #d9dddd;
+}
+.ListItemEven,
+.ListItemOdd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ListItemEven, ul:nth-child(2) {
+  background-color: #f8f8f0;
 }

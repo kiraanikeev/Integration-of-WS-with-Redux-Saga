@@ -43,7 +43,6 @@ function* eventChannelSaga() {
       yield put({ type: ADD_LOGS });
       //save user's "total logs count" from LS
       yield put({ type: LS_SAVE });
-     
     }
   } catch (error) {
     console.log("error", error);

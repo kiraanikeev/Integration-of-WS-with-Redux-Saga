@@ -2,7 +2,7 @@ import "./App.css";
 import { useSelector } from "react-redux";
 import { iDataActionCreater } from "./store/LogsReduсer";
 import { useDispatch } from "react-redux";
-
+import ReactWindow from "./components/ReactWindow";
 
 
 function App() {
@@ -20,21 +20,9 @@ function App() {
         START
       </button>
       <div className="App">
-          <div className="logs">
-            {logs.map((item) => {
-              return (
-                <div key={item.logData} className="log">
-                  <p>log Data: {item.logData}</p>
-                </div>
-              );
-            })}
-          </div>
         <p className={logs.length > 0 ? "count" : "invisible"}>
           Total Logs Count: {user.totalLogsCount}
         </p>
       </div>
-    </div>
-  );
-}
 
 export default App;
