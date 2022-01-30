@@ -1,16 +1,8 @@
 import { eventChannel} from "redux-saga";
-import {
-  call,
-  take,
-  put,
-  takeEvery,
-} from "redux-saga/effects";
-import { ADD_LOGS, LS_SAVE, LS_GET } from "../store/UserReduсer";
-import {
-  INITIALIZE_WS_CHANNEL,
-  addDataActionCreater,
-} from "../store/LogsReduсer";
-
+import { call, take, put, takeEvery,} from "redux-saga/effects";
+import { ADD_LOGS, LS_SAVE, LS_GET } from "../store/User/constants";
+import {addDataActionCreater} from "../store/Logs/actions";
+import {INITIALIZE_WS_CHANNEL} from "../store/Logs/constants";
 
 const createEventProviderChannel = (eventProvider) => {
   return eventChannel((emit) => {

@@ -2,7 +2,7 @@ h1 {
   text-align: center;
   margin: 50px auto;
 }
-.App {
+.data {
   display: flex;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 20px;
@@ -16,19 +16,6 @@ h1 {
   border: black 1px solid;
   margin-bottom: 30px;
   }
-/* .logs{
-  width: 320px;
-  background-color: #DCDCDC;
-  justify-content: flex-end;
-  }
- .log{
-text-align: center;
-height: 35px;
-padding-top: 5px;
- }
-  .log:nth-child(2n+1) {
-  background-color: #ffffff;
-   } */
 .button{
   border: none;
   background-color: #fff;

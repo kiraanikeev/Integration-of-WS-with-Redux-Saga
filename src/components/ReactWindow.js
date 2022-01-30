@@ -15,7 +15,7 @@ const Row = ({ index, isScrolling, style }) => {
   if (index + 1 >= itemsCount) return null;
   return (
     <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
-      {isScrolling ? "Scrolling" : item.logData}
+      {isScrolling ? "Scrolling" : item.time}
     </div>
   );
 };

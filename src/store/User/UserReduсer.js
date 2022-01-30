@@ -2,10 +2,6 @@ const defaultState = {
   totalLogsCount: 0,
 };
 
-export const ADD_LOGS = "ADD_LOGS";
-export const LS_SAVE = "LS_SAVE";
-export const LS_GET = "LS_GET";
-
 export const userReducer = (state = defaultState, action) => {
   switch (action.type) {
     //increasing total logs count
@@ -27,6 +23,4 @@ export const userReducer = (state = defaultState, action) => {
   }
 };
 
-export const addLogsActionCreater = () => ({ type: ADD_LOGS });
-export const saveLocalStorageActionCreater = () => ({ type: LS_SAVE });
-export const getLocalStorageActionCreater = () => ({ type: LS_GET });
+

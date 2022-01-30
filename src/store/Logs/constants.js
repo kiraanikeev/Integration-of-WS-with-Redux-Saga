@@ -1,0 +1,2 @@
+export const INITIALIZE_WS_CHANNEL = "INITIALIZE_WS_CHANNEL";
+export const DATA_WS = "DATA_WS";
